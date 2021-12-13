@@ -1,0 +1,55 @@
+If X_MHZN = 0 and X_FCM = 0 then
+        If FLAPS_1_FAULT = 0 or FLAPS_2_FAULT = 0 and SLATS_1_FAULT or SLATS_2_FAULT then
+            If (DPK1 = 0 or DPK2 = 0 and DZK1 = 0 or DZK2 = 0) then <Вариант 4>
+            else <Вариант 5>
+        else <Вариант 6>
+    else
+ 
+    If X_MHZN = 1 and X_FCM = 0 then
+        If FLAPS_1_FAULT = 0 or FLAPS_2_FAULT = 0 and SLATS_1_FAULT or SLATS_2_FAULT then
+            If (DPK1 = 0 or DPK2 = 0 and DZK1 = 1 or DZK2 = 1) then <Вариант 21>
+            else <Вариант 20>
+        else <Вариант 22>
+    else
+ 
+    If X_MHZN = 2 and X_FCM = 1 then
+        If FLAPS_1_FAULT = 0 or FLAPS_2_FAULT = 0 and SLATS_1_FAULT or SLATS_2_FAULT then
+            If (DPK1 = 18 or DPK2 = 18 and DZK1 = 3 or DZK2 = 3) then <Вариант 7>
+            else <Вариант 8>
+        else <Вариант 9>
+    else
+   
+    If X_MHZN = 3 and X_FCM = 1 then
+        If FLAPS_1_FAULT = 0 or FLAPS_2_FAULT = 0 and SLATS_1_FAULT or SLATS_2_FAULT then
+            If (DPK1 = 18 or DPK2 = 18 and DZK1 = 9 or DZK2 = 9) then <Вариант 10>
+            else <Вариант 11>
+        else <Вариант 12>
+    else
+ 
+    If X_MHZN = 4 and X_FCM = 2 then
+        If FLAPS_1_FAULT = 0 or FLAPS_2_FAULT = 0 and SLATS_1_FAULT or SLATS_2_FAULT then
+            If (DPK1 = 24 or DPK2 = 24 and DZK1 = 16 or DZK2 = 16) then <Вариант 13>
+            else <Вариант 14>
+        else <Вариант 15>
+    else
+ 
+    If X_MHZN = 5 and X_FCM = 3 then
+        If FLAPS_1_FAULT = 0 or FLAPS_2_FAULT = 0 and SLATS_1_FAULT or SLATS_2_FAULT then
+            If (DPK1 = 24 or DPK2 = 24 and DZK1 = 25 or DZK2 = 25) then <Вариант 16>
+            else <Вариант 17>
+        else <Вариант 18>
+    else
+
+ 
+    If X_MHZN = 6 and X_FCM = 4 then
+        If FLAPS_1_FAULT = 0 or FLAPS_2_FAULT = 0 and SLATS_1_FAULT or SLATS_2_FAULT then
+            If (DPK1 = 24 or DPK2 = 24 and DZK1 = 36 or DZK2 = 36) then
+                If (S/A and S/A_FEEDBACK) валиден and S/A = 1 then
+                        If S/A FEEDBACK = 0 более 3 сек then <Вариант 24>
+                        else <Вариант 23>
+                else <Вариант 1>
+            else <Вариант 2>
+        else <Вариант 3>
+    else <Вариант 19>
+else <Вариант 19>
+ 

@@ -1,0 +1,1 @@
+print(not(True and True and True))
