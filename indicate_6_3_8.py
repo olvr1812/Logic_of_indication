@@ -92,7 +92,7 @@ class Indication_6_3_8:
         self.fr11 = Frame(self.fr_main, relief="ridge", bd=1)
         self.fr12 = Frame(self.fr_main, relief="ridge", bd=1)
         self.fr13 = Frame(self.fr_main, relief="ridge", bd=1)
-        self.fr_start = Frame(self.fr_results, relief="raised", bd=4)
+        self.fr_start = Frame(self.fr_results, relief="raised", bd=4, bg="black")
         self.fr_copy = Frame(self.fr_results, relief="raised", bd=4)
         self.fr_screen = Frame(self.fr_results, relief="raised", bd=4)
         self.fr_logic = Frame(self.win, relief=RIDGE, bd=6)
@@ -216,11 +216,11 @@ class Indication_6_3_8:
         self.ent131 = Entry(self.fr13, textvariable=self.txt13, font=("Times New Roman", 11), relief="ridge", width=8)
         self.lbl132 = Label(self.fr13, text="True - 1\nFalse - 0", font=("Times New Roman", 11), width=10, height=2)
 
-        self.start = Button(self.fr_start, text="START", font=("Times New Roman", 20), activeforeground="#ADFF2F", \
-                            cursor="hand1", command=self.chek_b1)
-        self.copy = Button(self.fr_copy, text="Copy", font=('Times New Roman', 20), command=self.copy)
-        self.scr_and_sf = Button(self.fr_screen, text="Safe screen", font=("Times New Roman", 20), cursor="pirate",
-                                 command=self.screen)
+        self.start = Button(self.fr_start, text="START", font=("Times New Roman", 20), fg="red",
+                            activeforeground="#ADFF2F", cursor="hand1", command=self.chek_b1, width=11)
+        self.copy = Button(self.fr_copy, text="Copy", font=('Times New Roman', 20), command=self.copy, width=11)
+        self.scr_and_sf = Button(self.fr_screen, text="Save screen", font=("Times New Roman", 20), cursor="pirate",
+                                 command=self.screen, width=11)
         self.canvas = Canvas(self.fr_results, relief="ridge", bd=4, height=47, width=138)
 
         self.text = Text(self.fr_logic, font=("Times New Roman", 12), width=200)
@@ -355,6 +355,7 @@ class Indication_6_3_8:
         self.win.mainloop()
 
     def logik_of_indication(v_s, p_s):
+        global im
         if 0 <= p_s[0] <= 24 and 0 <= p_s[1] <= 24 and 0 <= p_s[2] <= 36 and 0 <= p_s[3] <= 36 and 0 <= p_s[4] <= 1 \
                 and 0 <= p_s[5] <= 1 and 0 <= p_s[6] <= 1 and 0 <= p_s[7] <= 1 and 0 <= p_s[8] <= 6 and 0 <= p_s[9] <= 4 \
                 and 0 <= p_s[10] <= 1 and 0 <= p_s[11] <= 1 and 0 <= p_s[12] <= 1:
@@ -516,5 +517,10 @@ class Indication_6_3_8:
         self.win.destroy()
         import help
 
+    def go_away(self):
+        self.win.withdraw()
+
+    def come_back(self):
+        self.win.deiconify()
 
 app = Indication_6_3_8()

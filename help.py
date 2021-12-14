@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter.ttk import Combobox
 from indicate_6_3_8 import *
+import indicate_6_3_8
 
 
 class Main_app():
@@ -43,7 +44,6 @@ class Main_app():
         print(self.comboExample.current(), self.comboExample.get())
 
     def open(self):
-        self.win.destroy()
-        import indicate_6_3_8
+        indicate_6_3_8.win.deiconify()
 
 app = Main_app()
