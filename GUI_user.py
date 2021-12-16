@@ -1,8 +1,24 @@
 from tkinter import *
+import openpyxl
+import pandas as pd
+
+x1 = pd.ExcelFile('logic.xlsx')
+x2 = pd.read_excel('./logic.xlsx')
+x2.head()
+
+#for i in range(1, 18)
+
+print(x1.sheet_names)
 from tkinter.ttk import Combobox
 from PIL import Image, ImageTk
 
-import GUI_user
+#wb = openpyxl.reader.excel.load_workbook(filename="logic.xlsx")
+#wb.active = 0
+#print(wb.sheetnames)
+
+#sheet = wb.active
+#print(sheet['A1'].value)
+
 
 i: IntVar = 1
 k: IntVar = 0
@@ -27,12 +43,6 @@ def chek_b1():
 win = Tk()
 win.geometry("600x400")
 
-
-var2 = IntVar()
-var2.set(1)
-
-
-txt2 = DoubleVar()
 
 fr_main = Frame(win)
 fr = Frame(fr_main, relief=RIDGE, bd = 1)
