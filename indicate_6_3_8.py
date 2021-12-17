@@ -236,6 +236,7 @@ class Indication_6_3_8:
         self.image = Image.open(Indication_6_3_8.im)
         self.photo = ImageTk.PhotoImage(self.image)
         self.c_image = self.canvas.create_image(60, 160, anchor='nw', image=self.photo)
+        print(self.image, "\n", self.photo, "\n", self.c_image)
 
         # Расположение виджетов
         self.fr_main.pack(side=LEFT, fill=Y)
