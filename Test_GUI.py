@@ -1,18 +1,11 @@
-from openpyxl import load_workbook
-wb = load_workbook(filename='logic.xlsx', read_only=True)
-ws = wb['6_3_8']
-list1 = []
-list2 = []
-list3 = []
-for i in ws.rows:
-    #break
-    for k in i:
-        if k == i[0]:
-            list1.append(k.value)
-        elif k == i[1]:
-            list2.append(k.value)
-        elif k == i[2]:
-            list3.append(k.value)
+import tkinter as tk
 
-print(list1, list2, list3, sep="\n")
+root = tk.Tk()
 
+T1 = tk.Text(root)
+T1.tag_configure("center", justify='center')
+T1.insert("1.0", "text")
+T1.tag_add("center", "1.0", "end")
+T1.pack()
+
+root.mainloop()
