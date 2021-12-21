@@ -6,8 +6,6 @@ import pyperclip
 
 
 class Indication_6_3_8:
-    v_s = []
-    p_s = []
     count = 0
     im = 'Indication/Var4.png'
 
@@ -356,12 +354,10 @@ class Indication_6_3_8:
         self.win.mainloop()
 
     def logik_of_indication(v_s, p_s):
-        global im
         if 0 <= p_s[0] <= 24 and 0 <= p_s[1] <= 24 and 0 <= p_s[2] <= 36 and 0 <= p_s[3] <= 36 and 0 <= p_s[4] <= 1 \
                 and 0 <= p_s[5] <= 1 and 0 <= p_s[6] <= 1 and 0 <= p_s[7] <= 1 and 0 <= p_s[8] <= 6 and 0 <= p_s[9] <= 4 \
                 and 0 <= p_s[10] <= 1 and 0 <= p_s[11] <= 1 and 0 <= p_s[12] <= 1:
-            if v_s[8] == 1 and (v_s[0] == 1 or v_s[1] == 1) and (v_s[2] == 1 or v_s[3] == 1) and v_s[8] == 1 and p_s[
-                10] == 1:
+            if v_s[8] == 1 and (v_s[0] == 1 or v_s[1] == 1) and (v_s[2] == 1 or v_s[3] == 1) and v_s[8] == 1 and p_s[10] == 1:
 
                 if p_s[8] == 0 and p_s[9] == 0:  # СУМК = 0 РУМК = 0
                     if (p_s[4] == 0 or p_s[5] == 0) and (p_s[6] == 0 or p_s[7] == 0):
@@ -454,6 +450,9 @@ class Indication_6_3_8:
                     else:
                         print('Вариант 3 | FULL - цвет янтарный')
                         im = "Indication/Var3.png"
+                else:
+                    print('Вариант 3 | FULL - цвет янтарный')
+                    im = "Indication/Var3.png"
 
             else:
                 print('Вариант 19 | XXXX')
@@ -463,9 +462,7 @@ class Indication_6_3_8:
         return im
 
     def chek_b1(self):
-        global p_s
-        global v_s
-
+        global im
         v_s = []
         p_s = []
         v_s.append(self.var1.get())
@@ -500,8 +497,14 @@ class Indication_6_3_8:
         self.photo = ImageTk.PhotoImage(self.image)
         self.c_image = self.canvas.create_image(0, 0, anchor=NW, image=self.photo)
         self.canvas.pack(side=TOP)
+        #print(self.im, self.image, self.photo, self.c_image, sep='\n')
+        print(v_s, '\n', p_s)
 
-        print(p_s, "\n", v_s)
+
+    def load_image(name):
+        img = Image.open(name)
+        img.thumbnail((200, 200), Image.ANTIALIAS)
+        return ImageTk.PhotoImage(img)
 
     def screen(self):
         self.count += 1
