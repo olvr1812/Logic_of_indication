@@ -1,0 +1,74 @@
+If L361(FCS11L-AVS)_valid then
+	L11V = 1
+	If MCC_A_1_FAULT(FCS11L-AVS)=1 or MCC_B_1_FAULT(FCS11L-AVS)=1  then
+	L11F = 1
+	else L11F = 0
+else L11V = 0
+If L361(FCS12L-AVS)_valid then
+	L12V = 1
+	If MCC_A_1_FAULT(FCS12L-AVS)=1  or MCC_B_1_FAULT(FCS12L-AVS)=1  then
+	L12F = 1
+	else L12F = 0
+else L12V = 0
+If L361(FCS21L-AVS)_valid then
+	L21V = 1
+	If MCC_A_1_FAULT(FCS21L-AVS)=1 or MCC_B_1_FAULT(FCS21L-AVS)=1 then
+	L21F = 1
+	else L21F = 0
+else L21V = 0
+If L361(FCS22L-AVS)_valid then
+	L22V = 1
+	If MCC_A_1_FAULT(FCS22L-AVS)=1 or MCC_B_1_FAULT(FCS22L-AVS)=1 then
+	L22F = 1
+	else L22F = 0
+else L22V = 0
+
+If L361(FCS11R-AVS)_valid then
+	R11V = 1
+	If MCC_A_1_FAULT(FCS11R-AVS)=1 or MCC_B_1_FAULT(FCS11R-AVS)=1 then
+	R11F = 1
+	else R11F = 0
+else R11V = 0
+If L361(FCS12R-AVS)_valid then
+	R12V = 1
+	If MCC_A_1_FAULT(FCS12R-AVS)=1 or MCC_B_1_FAULT(FCS12R-AVS)=1 then
+	R12F = 1
+	else R12F = 0
+else R12V = 0
+If L361(FCS21R-AVS)_valid then
+	R21V = 1
+	If MCC_A_1_FAULT(FCS21R-AVS)=1 or MCC_B_1_FAULT(FCS21R-AVS)=1 then
+	R21F = 1
+	else R21F = 0
+else R21V = 0
+
+If L361(FCS22R-AVS)_valid then
+	R22V = 1
+	If MCC_A_1_FAULT(FCS22R-AVS)=1 or MCC_B_1_FAULT(FCS22R-AVS)=1 then
+	R22F = 1
+	else R22F = 0
+else R22V = 0
+
+If FCL_DM = 1 then
+<Вариант 3> 
+else
+
+if (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) > 6 and (L11F + L12F + L21F + L22F + R11F + R12F + R21F + R22F) > 3 then 
+<Вариант 2>
+else <Вариант 1>
+
+if (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) < 7 and (L11F + L12F + L21F + L22F + R11F + R12F + R21F + R22F) > 2 then 
+<Вариант 2>
+else <Вариант 1>
+
+if (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) < 5 and (L11F + L12F + L21F + L22F + R11F + R12F + R21F + R22F) > 1 then 
+<Вариант 2>
+else <Вариант 1>
+
+if (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) < 3 and (L11F + L12F + L21F + L22F + R11F + R12F + R21F + R22F) > 0 then 
+<Вариант 2>
+else <Вариант 1>
+
+if (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) < 2 then 
+<Вариант 3>
+else <Вариант 1>

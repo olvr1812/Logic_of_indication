@@ -1,7 +1,12 @@
 from tkinter import *
+from openpyxl import load_workbook
+from PIL import Image, ImageTk
+from pyautogui import *
+import tkcap
+import pyperclip
+from functools import partial
 from tkinter.ttk import Combobox
-from indicate_6_3_8 import *
-import indicate_6_3_8
+
 
 
 class Main_app():
@@ -43,7 +48,8 @@ class Main_app():
     def choose_new(self, event):
         print(self.comboExample.current(), self.comboExample.get())
 
-    def open(self):
-        indicate_6_3_8.win.deiconify()
+    def open(self, _class):
+        import indicate_6_3_8
+        #indicate_6_3_8.win.deiconify()
 
 app = Main_app()
