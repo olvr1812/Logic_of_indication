@@ -385,9 +385,9 @@ class app_6_3_8:
 
         self.fr_results = Frame(self.win, relief=GROOVE, bd=4)
         self.fr_start = Frame(self.fr_results, relief="raised", bd=4, bg="black")
-        self.fr_tests = Frame(self.fr_results, relief=GROOVE, bd=1, bg="black")
-        self.fr_tests_l = Frame(self.fr_tests, relief=GROOVE, bd=1, bg="black")
-        self.fr_tests_r = Frame(self.fr_tests, relief=GROOVE, bd=1, bg="black")
+        self.fr_tests = Frame(self.fr_results, relief=GROOVE, bd=3, bg="black")
+        self.fr_tests_l = Frame(self.fr_tests, relief=GROOVE, bg="black")
+        self.fr_tests_r = Frame(self.fr_tests, relief=GROOVE, bg="black")
         self.fr_copy = Frame(self.fr_results, relief="raised", bd=4)
         self.fr_screen = Frame(self.fr_results, relief="raised", bd=4)
         self.fr_logic = Frame(self.win, relief=RIDGE, bd=6)

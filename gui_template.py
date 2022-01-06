@@ -152,7 +152,7 @@ class app_5_10_1:
         self.text["state"] = DISABLED
         self.scr = Scrollbar(self.fr_logic)
 
-        self.chb10["state"] = DISABLED
+        self.chb16["state"] = DISABLED
 
         self.fr_results.pack(side=LEFT, fill=BOTH)
         self.canvas.pack(side=TOP)
@@ -409,4 +409,4 @@ class app_5_10_1:
         import help
         return 0
 
-#App = app_5_10_1()
+App = app_5_10_1()
