@@ -6,6 +6,7 @@ import tkcap
 import pyperclip
 from functools import partial
 from tkinter.ttk import Combobox
+import indicate_6_3_8
 
 
 
@@ -48,8 +49,9 @@ class Main_app():
     def choose_new(self, event):
         print(self.comboExample.current(), self.comboExample.get())
 
-    def open(self, _class):
-        import indicate_6_3_8
+    def open(self):
+        return indicate_6_3_8.app_6_3_8
+
         #indicate_6_3_8.win.deiconify()
 
 

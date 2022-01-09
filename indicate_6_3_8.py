@@ -452,6 +452,6 @@ class app_6_3_8:
         self.win.mainloop()
 
 
-app = app_6_3_8()
+#app = app_6_3_8()
 
 
