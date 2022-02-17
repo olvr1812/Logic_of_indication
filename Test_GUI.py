@@ -1,133 +1,146 @@
+# pyinstaller \
+# -w -F -i 'gss_app.ico' Test_GUI.py
 
+from pandas import *
+import os
+import random
+import sys
+from tkinter import *
+from PIL import Image, ImageTk
 
-x = [1, 2, 3, 4, 5]
+class GuessingGame():
+    # Определение пути
+    # config_name = 'myapp.cfg'
 
-for i in x:
-    if p_s[:]:
-        if v_s[0] == 1:
-            L11V = 1
-            if p_s[0] == 1 or p_s[8] == 1:
-                L11F = 1
-            else:
-                L11F = 0
+    if getattr(sys, 'frozen', False):
+        application_path = os.path.dirname(sys.executable)
+    elif __file__:
+        application_path = os.path.dirname(__file__)
+
+    config_path = os.path.join(application_path)
+    # Конец определения пути
+    xl_new = read_excel(config_path +'/logic.xlsx')
+
+    descriptSig = xl_new['Описание входного параметра'].tolist()
+    nameSig = xl_new['Название входного параметра'].tolist()
+    rangeSig = xl_new['Физический диапазон'].tolist()
+
+    def __init__(self, master):
+        # get script directory where also the csv file is.
+        if getattr(sys, 'frozen', False):
+            application_path = sys._MEIPASS
         else:
-            L11V = 0
-            L11F = 0
-        if v_s[1] == 1:
-            L12V = 1
-            if p_s[1] == 1 or p_s[9] == 1:
-                L12F = 1
+            application_path = os.path.dirname(os.path.abspath(__file__))
+
+        self.path = application_path
+
+
+        self.master = master
+        master.title("Guessing Game")
+
+        self.secret_number = random.randint(1, 100)
+        self.guess = None
+        self.num_guesses = 0
+
+        self.message = "Guess a number from 1 to 100"
+        self.label_text = StringVar()
+        self.label_text.set(self.message)
+        self.label = Label(master, textvariable=self.label_text)
+        self.lbl = Label(master, text=self.nameSig[0])
+
+        vcmd = master.register(self.validate)  # we have to wrap the command
+        self.entry = Entry(master, validate="key", validatecommand=(vcmd, '%P'))
+
+        self.guess_button = Button(master, text="<b>Guess</b>", command=self.guess_number)
+        self.reset_button = Button(master, text="Play again", command=self.reset, state=DISABLED)
+
+        self.label.pack()
+        self.entry.pack()
+        self.guess_button.pack()
+        self.reset_button.pack()
+        self.lbl.pack()
+
+        self.img1 = Image.open(GuessingGame.config_path + "/logo.png")
+        self.img2 = Image.open(GuessingGame.config_path + "/ssj1.png")
+        self.img3 = Image.open(GuessingGame.config_path + "/ssj2.png")
+
+        self.width = 400
+
+        self.ratio = (self.width / 3000)
+        self.height = int((float(self.img1.size[1]) * float(self.ratio)))
+        self.imag1 = self.img1.resize((300, self.height), Image.ANTIALIAS)
+        self.image1 = ImageTk.PhotoImage(self.imag1)
+
+        self.imag2 = self.img2.resize((self.width, 150), Image.ANTIALIAS)
+        self.image2 = ImageTk.PhotoImage(self.imag2)
+
+        self.imag3 = self.img3.resize((self.width, 150), Image.ANTIALIAS)
+        self.image3 = ImageTk.PhotoImage(self.imag3)
+
+        self.fr_back = Frame(master)
+        self.fr_back.pack(side=TOP, fill=X)
+
+        self.panel2 = Label(self.fr_back, image=self.image2)
+        self.panel2.pack(side=LEFT)
+
+        self.panel1 = Label(self.fr_back, image=self.image1)
+        self.panel1.pack(side=LEFT, expand=YES)
+
+        self.panel3 = Label(self.fr_back, image=self.image3)
+        self.panel3.pack(side=RIGHT)
+
+
+    def validate(self, new_text):
+        if not new_text:  # the field is being cleared
+            self.guess = None
+            return True
+
+        try:
+            guess = int(new_text)
+            if 1 <= guess <= 100:
+                self.guess = guess
+                return True
             else:
-                L12F = 0
+                return False
+        except ValueError:
+            return False
+
+
+    def guess_number(self):
+
+        self.num_guesses += 1
+
+        if self.guess is None:
+            self.message = os.getcwd()
+
+        elif self.guess == self.secret_number:
+            suffix = '' if self.num_guesses == 1 else 'es'
+            self.message = "Congratulations! You guessed the number after %d guess%s." % (self.num_guesses, suffix)
+            self.guess_button.configure(state=DISABLED)
+            self.reset_button.configure(state=NORMAL)
+
+        elif self.guess < self.secret_number:
+            self.message = "It's low guess"
         else:
-            L12V = 0
-            L12F = 0
+            self.message = "It's high guess"
 
-        if v_s[2] == 1:
-            L21V = 1
-            if p_s[2] == 1 or p_s[10] == 1:
-                L21F = 1
-            else:
-                L21F = 0
-        else:
-            L21V = 0
-            L21F = 0
-
-        if v_s[3] == 1:
-            L22V = 1
-            if p_s[3] == 1 or p_s[11] == 1:
-                L22F = 1
-            else:
-                L22F = 0
-        else:
-            L22V = 0
-            L22F = 0
-
-        if v_s[4] == 1:
-            R11V = 1
-            if p_s[4] == 1 or p_s[12] == 1:
-                R11F = 1
-            else:
-                R11F = 0
-        else:
-            R11V = 0
-            R11F = 0
-
-        if v_s[5] == 1:
-            R12V = 1
-            if p_s[5] == 1 or p_s[13] == 1:
-                R12F = 1
-            else:
-                R12F = 0
-        else:
-            R12V = 0
-            R12F = 0
-
-        if v_s[6] == 1:
-            R21V = 1
-            if p_s[6] == 1 or p_s[14] == 1:
-                R21F = 1
-            else:
-                R21F = 0
-        else:
-            R21V = 0
-            R21F = 0
-
-        if v_s[7] == 1:
-            R22V = 1
-            if p_s[7] == 1 or p_s[15] == 1:
-                R22F = 1
-            else:
-                R22F = 0
-        else:
-            R22V = 0
-            R22F = 0
-
-        if p_s[16] == 1:
-            ans = "Вариант 3"
-            txt = "Нет данных о состоянии канала 1 СДУ. Восстанавливаемый минимальный режим управления. Прямоугольник и номер индицируются янтарным цветом перечёркнутые янтарным крестом."
-            im = 'Indication_5_10_1/Var3.png'
-        else:
-            if (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) > 6 and (
-                    L11F + L12F + L21F + L22F + R11F + R12F + R21F + R22F) > 3:
-                ans = "Вариант 2"
-                txt = "Отказ канала 1 СДУ. Прямоугольник и номер индицируются янтарным цветом."
-                im = 'Indication_5_10_1/Var2.png'
-
-            elif (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) < 7 and (
-                    L11F + L12F + L21F + L22F + R11F + R12F + R21F + R22F) > 2:
-                ans = "Вариант 2"
-                txt = "Отказ канала 1 СДУ. Прямоугольник и номер индицируются янтарным цветом."
-                im = 'Indication_5_10_1/Var2.png'
+        self.label_text.set(self.message)
 
 
-            elif (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) < 5 and (
-                    L11F + L12F + L21F + L22F + R11F + R12F + R21F + R22F) > 1:
-                ans = "Вариант 2"
-                txt = "Нормальное состояние канала 1 СДУ. Прямоугольник и номер индицируются зелёным цветом."
-                im = 'Indication_5_10_1/Var2.png'
+    def reset(self):
+        self.entry.delete(0, END)
+        self.secret_number = random.randint(1, 100)
+        self.guess = 0
+        self.num_guesses = 0
+
+        self.message = "<b>Guess</b> a number from 1 to 100"
+        self.label_text.set(self.message)
+
+        self.guess_button.configure(state=NORMAL)
+        self.reset_button.configure(state=DISABLED)
 
 
-            elif (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) < 3 and (
-                    L11F + L12F + L21F + L22F + R11F + R12F + R21F + R22F) > 0:
-                ans = "Вариант 2"
-                txt = "Нормальное состояние канала 1 СДУ. Прямоугольник и номер индицируются зелёным цветом."
-                im = 'Indication_5_10_1/Var2.png'
-
-
-            elif (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) < 2:
-                ans = "Вариант 3"
-                txt = "Нет данных о состоянии канала 1 СДУ. Восстанавливаемый минимальный режим управления. Прямоугольник и номер индицируются янтарным цветом перечёркнутые янтарным крестом."
-                im = 'Indication_5_10_1/Var3.png'
-
-            else:
-                ans = "Вариант 1"
-                txt = "Нормальное состояние канала 1 СДУ. Прямоугольник и номер индицируются зелёным цветом."
-                im = 'Indication_5_10_1/Var1.png'
-
-
-    # print(v_s, "\n", p_s)
-
-    else:
-        print("System Error")
-        im = 'Indication_5_10_1/Error.png'
+if __name__ == "__main__" :
+    root = Tk()
+    my_gui = GuessingGame(root)
+    root.mainloop()

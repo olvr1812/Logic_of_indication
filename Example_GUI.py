@@ -1,180 +1,473 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
-# 技术支持：https://www.jianshu.com/u/69f40328d4f0
-# 技术支持 https://china-testing.github.io/
-# https://github.com/china-testing/python-api-tesing/blob/master/practices/tk/tk3.py
-# 项目实战讨论QQ群630011153 144081101
-# CreateDate: 2018-11-29
+
+import sys, random
+from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication
+from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal
+from PyQt5.QtGui import QPainter, QColor
 
 
-import tkinter as tk
+class Tetris(QMainWindow):
 
-root = tk.Tk()
-root.title('tkinter控件')
-#create a frame widget for placing menu
-my_menu_bar = tk.Frame(root, relief='raised', bd=2)
-my_menu_bar.pack(fill=tk.X)
+    def __init__(self):
+        super().__init__()
 
-# Create  Menu Widget 1 and Sub Menu 1
-my_menu_button = tk.Menubutton(
-    my_menu_bar,
-    text='菜单1',
-)
-my_menu_button.pack(side=tk.LEFT)
-#menu widget
-my_menu = tk.Menu(my_menu_button, tearoff=0)
-my_menu_button['menu'] = my_menu
-my_menu.add('command', label='子菜单1')  #Add Sub Menu 1
+        self.initUI()
 
-# Create  Menu2 and Submenu2
-menu_button_2 = tk.Menubutton(
-    my_menu_bar,
-    text='菜单2',
-)
-menu_button_2.pack(side=tk.LEFT)
-my_menu_2 = tk.Menu(menu_button_2, tearoff=0)
-menu_button_2['menu'] = my_menu_2
-my_menu_2.add('command', label='子菜单2')  # Add Sub Menu 2
 
-#
-#
-# my_frame_1  and its contents
-#
+    def initUI(self):
 
-# creating a frame (my_frame_1)
-my_frame_1 = tk.Frame(root, bd=2, relief=tk.SUNKEN)
-my_frame_1.pack(side=tk.LEFT)
+        self.tboard = Board(self)
+        self.setCentralWidget(self.tboard)
 
-# add label to to my_frame_1
-tk.Label(my_frame_1, text='标签').pack()
+        self.statusbar = self.statusBar()
+        self.tboard.msg2Statusbar[str].connect(self.statusbar.showMessage)
 
-#add entry widget to my_frame_1
-tv = tk.StringVar()  #discussed later
-tk.Entry(my_frame_1, textvariable=tv).pack()
-tv.set('I am an entry widget')
+        self.tboard.start()
 
-#add button widget to my_frame_1
-tk.Button(my_frame_1, text='tk.Button widget').pack()
+        self.resize(180, 380)
+        self.center()
+        self.setWindowTitle('Tetris')
+        self.show()
 
-#add check button widget to my_frame_1
-tk.Checkbutton(my_frame_1, text='Checktk.Button Widget').pack()
 
-#add radio buttons to my_frame_1
-tk.Radiobutton(my_frame_1, text='Radio tk.Button  Un', value=1).pack()
-tk.Radiobutton(my_frame_1, text='Radio tk.Button  Dos', value=2).pack()
-tk.Radiobutton(my_frame_1, text='Radio tk.Button  Tres', value=3).pack()
+    def center(self):
 
-#tk.OptionMenu Widget
-tk.Label(my_frame_1, text='Example of tk.OptionMenu Widget:').pack()
-tk.OptionMenu(my_frame_1, '', "Option A", "Option B", "Option C").pack()
+        screen = QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width()-size.width())/2,
+            (screen.height()-size.height())/2)
 
-#adding my_image image
-tk.Label(my_frame_1, text='Image Fun with Bitmap Class:').pack()
-my_image = tk.BitmapImage(file="/Indication/Var10.png")
-my_label = tk.Label(my_frame_1, image=my_image)
-my_label.image = my_image  # keep a reference!
-my_label.pack()
 
-#
-#
-# frame2 and widgets it contains.
-#
-#
+class Board(QFrame):
 
-#create another frame(my_frame_2) to hold a list box, Spinbox Widget,Scale Widget, :
-my_frame_2 = tk.Frame(root, bd=2, relief=tk.GROOVE)
-my_frame_2.pack(side=tk.RIGHT)
+    msg2Statusbar = pyqtSignal(str)
 
-#add Photimage Class Widget to my_frame_2
-tk.Label(
-    my_frame_2, text='Image displayed with \nPhotoImage class widget:').pack()
-dance_photo = tk.PhotoImage(file="/Indication/Var10.png")
-dance_photo_label = tk.Label(my_frame_2, image=dance_photo)
-dance_photo_label.image = dance_photo
-dance_photo_label.pack()
+    BoardWidth = 10
+    BoardHeight = 22
+    Speed = 300
 
-#add my_listbox widget to my_frame_2
-tk.Label(my_frame_2, text='Below is an example of my_listbox widget:').pack()
-my_listbox = tk.Listbox(my_frame_2, height=4)
-for line in ['Listbox Choice 1', 'Choice 2', 'Choice 3', 'Choice 4']:
-  my_listbox.insert(tk.END, line)
-my_listbox.pack()
+    def __init__(self, parent):
+        super().__init__(parent)
 
-#spinbox widget
-tk.Label(my_frame_2, text='Below is an example of spinbox widget:').pack()
-tk.Spinbox(my_frame_2, values=(1, 2, 4, 8, 10)).pack()
+        self.initBoard()
 
-#scale widget
-tk.Scale(
-    my_frame_2, from_=0.0, to=100.0, label='Scale widget',
-    orient=tk.HORIZONTAL).pack()
 
-#LabelFrame
-label_frame = tk.LabelFrame(
-    my_frame_2, text="LabelFrame Widget", padx=10, pady=10)
-label_frame.pack(padx=10, pady=10)
-tk.Entry(label_frame).pack()
+    def initBoard(self):
 
-#message widget
-tk.Message(my_frame_2, text='I am a Message widget').pack()
+        self.timer = QBasicTimer()
+        self.isWaitingAfterLine = False
 
-#
-#
-# tk.Frame 3
-#
-#
+        self.curX = 0
+        self.curY = 0
+        self.numLinesRemoved = 0
+        self.board = []
 
-my_frame_3 = tk.Frame(root, bd=2, relief=tk.SUNKEN)
+        self.setFocusPolicy(Qt.StrongFocus)
+        self.isStarted = False
+        self.isPaused = False
+        self.clearBoard()
 
-#text widget and associated tk.Scrollbar widget
-my_text = tk.Text(my_frame_3, height=10, width=40)
-file_object = open('textcontent.txt', encoding='utf-8')
-file_content = file_object.read()
-file_object.close()
-my_text.insert(tk.END, file_content)
-my_text.pack(side=tk.LEFT, fill=tk.X, padx=5)
 
-#add scrollbar widget to the text widget
-my_scrollbar = tk.Scrollbar(my_frame_3, orient=tk.VERTICAL, command=my_text.yview)
-my_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-my_text.configure(yscrollcommand=my_scrollbar.set)
-my_frame_3.pack()
+    def shapeAt(self, x, y):
+        return self.board[(y * Board.BoardWidth) + x]
 
-#
-#
-# tk.Frame 4
-#
-#
-#create another frame(my_frame_4)
-my_frame_4 = tk.Frame(root)
-my_frame_4.pack()
 
-my_canvas = tk.Canvas(my_frame_4, bg='white', width=340, height=80)
-my_canvas.pack()
-my_canvas.create_oval(20, 15, 60, 60, fill='red')
-my_canvas.create_oval(40, 15, 60, 60, fill='grey')
-my_canvas.create_text(
-    130, 38, text='I am a tk.Canvas Widget', font=('arial', 8, 'bold'))
+    def setShapeAt(self, x, y, shape):
+        self.board[(y * Board.BoardWidth) + x] = shape
 
-#
-#
-# A paned window widget
-#
-#
 
-tk.Label(root, text='Below is an example of Paned window widget:').pack()
-tk.Label(
-    root,
-    text='Notice you can adjust the size of each pane by dragging it').pack()
-my_paned_window_1 = tk.PanedWindow()
-my_paned_window_1.pack(fill=tk.BOTH, expand=2)
-left_pane_text = tk.Text(my_paned_window_1, height=6, width=15)
-my_paned_window_1.add(left_pane_text)
-my_paned_window_2 = tk.PanedWindow(my_paned_window_1, orient=tk.VERTICAL)
-my_paned_window_1.add(my_paned_window_2)
-top_pane_text = tk.Text(my_paned_window_2, height=3, width=3)
-my_paned_window_2.add(top_pane_text)
-bottom_pane_text = tk.Text(my_paned_window_2, height=3, width=3)
-my_paned_window_2.add(bottom_pane_text)
+    def squareWidth(self):
+        return self.contentsRect().width() // Board.BoardWidth
 
-root.mainloop()
+
+    def squareHeight(self):
+        return self.contentsRect().height() // Board.BoardHeight
+
+
+    def start(self):
+
+        if self.isPaused:
+            return
+
+        self.isStarted = True
+        self.isWaitingAfterLine = False
+        self.numLinesRemoved = 0
+        self.clearBoard()
+
+        self.msg2Statusbar.emit(str(self.numLinesRemoved))
+
+        self.newPiece()
+        self.timer.start(Board.Speed, self)
+
+
+    def pause(self):
+
+        if not self.isStarted:
+            return
+
+        self.isPaused = not self.isPaused
+
+        if self.isPaused:
+            self.timer.stop()
+            self.msg2Statusbar.emit("paused")
+
+        else:
+            self.timer.start(Board.Speed, self)
+            self.msg2Statusbar.emit(str(self.numLinesRemoved))
+
+        self.update()
+
+
+    def paintEvent(self, event):
+
+        painter = QPainter(self)
+        rect = self.contentsRect()
+
+        boardTop = rect.bottom() - Board.BoardHeight * self.squareHeight()
+
+        for i in range(Board.BoardHeight):
+            for j in range(Board.BoardWidth):
+                shape = self.shapeAt(j, Board.BoardHeight - i - 1)
+
+                if shape != Tetrominoe.NoShape:
+                    self.drawSquare(painter,
+                        rect.left() + j * self.squareWidth(),
+                        boardTop + i * self.squareHeight(), shape)
+
+        if self.curPiece.shape() != Tetrominoe.NoShape:
+
+            for i in range(4):
+
+                x = self.curX + self.curPiece.x(i)
+                y = self.curY - self.curPiece.y(i)
+                self.drawSquare(painter, rect.left() + x * self.squareWidth(),
+                    boardTop + (Board.BoardHeight - y - 1) * self.squareHeight(),
+                    self.curPiece.shape())
+
+
+    def keyPressEvent(self, event):
+
+        if not self.isStarted or self.curPiece.shape() == Tetrominoe.NoShape:
+            super(Board, self).keyPressEvent(event)
+            return
+
+        key = event.key()
+
+        if key == Qt.Key_P:
+            self.pause()
+            return
+
+        if self.isPaused:
+            return
+
+        elif key == Qt.Key_Left:
+            self.tryMove(self.curPiece, self.curX - 1, self.curY)
+
+        elif key == Qt.Key_Right:
+            self.tryMove(self.curPiece, self.curX + 1, self.curY)
+
+        elif key == Qt.Key_Down:
+            self.tryMove(self.curPiece.rotateRight(), self.curX, self.curY)
+
+        elif key == Qt.Key_Up:
+            self.tryMove(self.curPiece.rotateLeft(), self.curX, self.curY)
+
+        elif key == Qt.Key_Space:
+            self.dropDown()
+
+        elif key == Qt.Key_D:
+            self.oneLineDown()
+
+        else:
+            super(Board, self).keyPressEvent(event)
+
+
+    def timerEvent(self, event):
+
+        if event.timerId() == self.timer.timerId():
+
+            if self.isWaitingAfterLine:
+                self.isWaitingAfterLine = False
+                self.newPiece()
+            else:
+                self.oneLineDown()
+
+        else:
+            super(Board, self).timerEvent(event)
+
+
+    def clearBoard(self):
+
+        for i in range(Board.BoardHeight * Board.BoardWidth):
+            self.board.append(Tetrominoe.NoShape)
+
+
+    def dropDown(self):
+
+        newY = self.curY
+
+        while newY > 0:
+
+            if not self.tryMove(self.curPiece, self.curX, newY - 1):
+                break
+
+            newY -= 1
+
+        self.pieceDropped()
+
+
+    def oneLineDown(self):
+
+        if not self.tryMove(self.curPiece, self.curX, self.curY - 1):
+            self.pieceDropped()
+
+
+    def pieceDropped(self):
+
+        for i in range(4):
+
+            x = self.curX + self.curPiece.x(i)
+            y = self.curY - self.curPiece.y(i)
+            self.setShapeAt(x, y, self.curPiece.shape())
+
+        self.removeFullLines()
+
+        if not self.isWaitingAfterLine:
+            self.newPiece()
+
+
+    def removeFullLines(self):
+
+        numFullLines = 0
+        rowsToRemove = []
+
+        for i in range(Board.BoardHeight):
+
+            n = 0
+            for j in range(Board.BoardWidth):
+                if not self.shapeAt(j, i) == Tetrominoe.NoShape:
+                    n = n + 1
+
+            if n == 10:
+                rowsToRemove.append(i)
+
+        rowsToRemove.reverse()
+
+
+        for m in rowsToRemove:
+
+            for k in range(m, Board.BoardHeight):
+                for l in range(Board.BoardWidth):
+                        self.setShapeAt(l, k, self.shapeAt(l, k + 1))
+
+        numFullLines = numFullLines + len(rowsToRemove)
+
+        if numFullLines > 0:
+
+            self.numLinesRemoved = self.numLinesRemoved + numFullLines
+            self.msg2Statusbar.emit(str(self.numLinesRemoved))
+
+            self.isWaitingAfterLine = True
+            self.curPiece.setShape(Tetrominoe.NoShape)
+            self.update()
+
+
+    def newPiece(self):
+
+        self.curPiece = Shape()
+        self.curPiece.setRandomShape()
+        self.curX = Board.BoardWidth // 2 + 1
+        self.curY = Board.BoardHeight - 1 + self.curPiece.minY()
+
+        if not self.tryMove(self.curPiece, self.curX, self.curY):
+
+            self.curPiece.setShape(Tetrominoe.NoShape)
+            self.timer.stop()
+            self.isStarted = False
+            self.msg2Statusbar.emit("Game over")
+
+
+
+    def tryMove(self, newPiece, newX, newY):
+
+        for i in range(4):
+
+            x = newX + newPiece.x(i)
+            y = newY - newPiece.y(i)
+
+            if x < 0 or x >= Board.BoardWidth or y < 0 or y >= Board.BoardHeight:
+                return False
+
+            if self.shapeAt(x, y) != Tetrominoe.NoShape:
+                return False
+
+        self.curPiece = newPiece
+        self.curX = newX
+        self.curY = newY
+        self.update()
+
+        return True
+
+
+    def drawSquare(self, painter, x, y, shape):
+
+        colorTable = [0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
+                      0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00]
+
+        color = QColor(colorTable[shape])
+        painter.fillRect(x + 1, y + 1, self.squareWidth() - 2,
+            self.squareHeight() - 2, color)
+
+        painter.setPen(color.lighter())
+        painter.drawLine(x, y + self.squareHeight() - 1, x, y)
+        painter.drawLine(x, y, x + self.squareWidth() - 1, y)
+
+        painter.setPen(color.darker())
+        painter.drawLine(x + 1, y + self.squareHeight() - 1,
+            x + self.squareWidth() - 1, y + self.squareHeight() - 1)
+        painter.drawLine(x + self.squareWidth() - 1,
+            y + self.squareHeight() - 1, x + self.squareWidth() - 1, y + 1)
+
+
+class Tetrominoe(object):
+
+    NoShape = 0
+    ZShape = 1
+    SShape = 2
+    LineShape = 3
+    TShape = 4
+    SquareShape = 5
+    LShape = 6
+    MirroredLShape = 7
+
+
+class Shape(object):
+
+    coordsTable = (
+        ((0, 0),     (0, 0),     (0, 0),     (0, 0)),
+        ((0, -1),    (0, 0),     (-1, 0),    (-1, 1)),
+        ((0, -1),    (0, 0),     (1, 0),     (1, 1)),
+        ((0, -1),    (0, 0),     (0, 1),     (0, 2)),
+        ((-1, 0),    (0, 0),     (1, 0),     (0, 1)),
+        ((0, 0),     (1, 0),     (0, 1),     (1, 1)),
+        ((-1, -1),   (0, -1),    (0, 0),     (0, 1)),
+        ((1, -1),    (0, -1),    (0, 0),     (0, 1))
+    )
+
+    def __init__(self):
+
+        self.coords = [[0,0] for i in range(4)]
+        self.pieceShape = Tetrominoe.NoShape
+
+        self.setShape(Tetrominoe.NoShape)
+
+
+    def shape(self):
+        return self.pieceShape
+
+
+    def setShape(self, shape):
+
+        table = Shape.coordsTable[shape]
+
+        for i in range(4):
+            for j in range(2):
+                self.coords[i][j] = table[i][j]
+
+        self.pieceShape = shape
+
+
+    def setRandomShape(self):
+        self.setShape(random.randint(1, 7))
+
+
+    def x(self, index):
+        return self.coords[index][0]
+
+
+    def y(self, index):
+        return self.coords[index][1]
+
+
+    def setX(self, index, x):
+        self.coords[index][0] = x
+
+
+    def setY(self, index, y):
+        self.coords[index][1] = y
+
+
+    def minX(self):
+
+        m = self.coords[0][0]
+        for i in range(4):
+            m = min(m, self.coords[i][0])
+
+        return m
+
+
+    def maxX(self):
+
+        m = self.coords[0][0]
+        for i in range(4):
+            m = max(m, self.coords[i][0])
+
+        return m
+
+
+    def minY(self):
+
+        m = self.coords[0][1]
+        for i in range(4):
+            m = min(m, self.coords[i][1])
+
+        return m
+
+
+    def maxY(self):
+
+        m = self.coords[0][1]
+        for i in range(4):
+            m = max(m, self.coords[i][1])
+
+        return m
+
+
+    def rotateLeft(self):
+
+        if self.pieceShape == Tetrominoe.SquareShape:
+            return self
+
+        result = Shape()
+        result.pieceShape = self.pieceShape
+
+        for i in range(4):
+
+            result.setX(i, self.y(i))
+            result.setY(i, -self.x(i))
+
+        return result
+
+
+    def rotateRight(self):
+
+        if self.pieceShape == Tetrominoe.SquareShape:
+            return self
+
+        result = Shape()
+        result.pieceShape = self.pieceShape
+
+        for i in range(4):
+
+            result.setX(i, -self.y(i))
+            result.setY(i, self.x(i))
+
+        return result
+
+
+if __name__ == '__main__':
+
+    app = QApplication([])
+    tetris = Tetris()
+    sys.exit(app.exec_())
