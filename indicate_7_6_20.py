@@ -12,7 +12,7 @@ import tkcap
 import Main_GUI
 
 
-class app_6_3_8:
+class app_7_6_20:
     # Определение рабочей папки
     if getattr(sys, 'frozen', False):
         application_path = os.path.dirname(sys.executable)
@@ -29,153 +29,98 @@ class app_6_3_8:
     count = 1
 
     # Ввод переменных
-    xl_new = read_excel(config_path + '/logic.xlsx', sheet_name='6_3_8')
+    xl_new = read_excel(config_path + '/logic.xlsx', sheet_name='7_6_20')
 
     descriptSig = xl_new['Описание входного параметра'].tolist()
     nameSig = xl_new['Название входного параметра'].tolist()
     rangeSig = xl_new['Физический диапазон'].tolist()
 
-    im = config_path + '/Images/Indication_6_3_8/Var4.png'
+    im = config_path + '/Images/Indication_7_6_20/Var4.png'
 
-    logic = open(config_path + '/logic_text/logic_6_3_8.txt', encoding='utf-8').readlines()
+    logic = open(config_path + '/logic_text/logic_7_6_20.txt', encoding='utf-8').readlines()
     logic = ''.join(logic)
 
     txt_results = "kj"
 
     def chek_b1(self):
         v_s = []
-        p_s = []
-        for l in range(len(app_6_3_8.descriptSig)):
+        for l in range(len(app_7_6_20.descriptSig)):
             exec('v_s.append(self.var{}.get())'.format(str(l)))
-            exec('p_s.append(self.txt{}.get())'.format(str(l)))
-        print(v_s, p_s, sep="\n")
+        print(v_s, sep="\n")
 
-        self.im = app_6_3_8.logik_of_indication(self, v_s, p_s)
+        self.im = app_7_6_20.logik_of_indication(self, v_s)
         self.image = Image.open(self.im)
         self.photo = ImageTk.PhotoImage(self.image)
         self.x = self.photo.width()
         self.y =self.photo.height()
         self.canvas.delete("all")
         self.canvas.config(width=self.x, height=self.y)
-        self.canvas.create_image(6, 6, image=self.photo, anchor=NW)
+        self.canvas.create_image(8, 8, image=self.photo, anchor=NW)
 
-    def logik_of_indication(self, v_s, p_s):
-        if 0 <= p_s[0] <= 24 and 0 <= p_s[1] <= 24 and 0 <= p_s[2] <= 36 and 0 <= p_s[3] <= 36 and 0 <= p_s[4] <= 1 \
-                and 0 <= p_s[5] <= 1 and 0 <= p_s[6] <= 1 and 0 <= p_s[7] <= 1 and 0 <= p_s[8] <= 6 and 0 <= p_s[9] <= 4 \
-                and 0 <= p_s[10] <= 1 and 0 <= p_s[11] <= 1 and 0 <= p_s[12] <= 1:
-            if v_s[8] == 1 and (v_s[0] == 1 or v_s[1] == 1) and (v_s[2] == 1 or v_s[3] == 1) and v_s[8] == 1 and \
-                    p_s[10] == 1:
-
-
-                if p_s[8] == 0 and p_s[9] == 0:  # СУМК = 0 РУМК = 0
-                    if (p_s[4] == 0 or p_s[5] == 0) and (p_s[6] == 0 or p_s[7] == 0):
-                        if (p_s[0] == 0 or p_s[1] == 0) and (p_s[2] == 0 or p_s[3] == 0):
-                            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var4.png"
-                            self.result_lbl.config(text="Вариант 4", foreground="black")
-
-                        else:
-                            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var5.png"
-                            self.result_lbl.config(text="Вариант 5", foreground="black")
-                    else:
-                        im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var6.png"
-                        self.result_lbl.config(text="Вариант 6", foreground="black")
-
-                elif p_s[8] == 1 and p_s[9] == 0:  # СУМК = 1 РУМК = 0
-                    if (p_s[4] == 0 or p_s[5] == 0) and (p_s[6] == 0 or p_s[7] == 0):
-                        if (p_s[0] == 0 or p_s[1] == 0) and (p_s[2] == 1 or p_s[3] == 1):
-                            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var21.png"
-                            self.result_lbl.config(text="Вариант 21", foreground="black")
-                        else:
-                            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var20.png"
-                            self.result_lbl.config(text="Вариант 20", foreground="black")
-                    else:
-                        im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var22.png"
-                        self.result_lbl.config(text="Вариант 22", foreground="black")
-
-                elif p_s[8] == 2 and p_s[9] == 1:  # СУМК 2 РУМК = 1
-                    if (p_s[4] == 0 or p_s[5] == 0) and (p_s[6] == 0 or p_s[7] == 0):
-                        if (p_s[0] == 18 or p_s[1] == 18) and (p_s[2] == 3 or p_s[3] == 3):
-                            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var7.png"
-                            self.result_lbl.config(text="Вариант 7", foreground="black")
-                        else:
-                            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var8.png"
-                            self.result_lbl.config(text="Вариант 8", foreground="black")
-                    else:
-                        im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var9.png"
-                        self.result_lbl.config(text="Вариант 9", foreground="black")
-
-                elif p_s[8] == 3 and p_s[9] == 1:  # СУМК = 3 РУМК = 1
-                    if (p_s[4] == 0 or p_s[5] == 0) and (p_s[6] == 0 or p_s[7] == 0):
-                        if (p_s[0] == 18 or p_s[1] == 18) and (p_s[2] == 9 or p_s[3] == 9):
-                            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var10.png"
-                            self.result_lbl.config(text="Вариант 10", foreground="black")
-                        else:
-                            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var11.png"
-                            self.result_lbl.config(text="Вариант 11", foreground="black")
-                    else:
-                        im = app_6_3_8.config_path + "/Indication_6_3_8/Var12.png"
-                        self.result_lbl.config(text="Вариант 12", foreground="black")
-
-                elif p_s[8] == 4 and p_s[9] == 2:  # СУМК = 4 РУМК = 2
-                    if (p_s[4] == 0 or p_s[5] == 0) and (p_s[6] == 0 or p_s[7] == 0):
-                        if (p_s[0] == 24 or p_s[1] == 24) and (p_s[2] == 16 or p_s[3] == 16):
-                            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var13.png"
-                            self.result_lbl.config(text="Вариант 13", foreground="black")
-                        else:
-                            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var14.png"
-                            self.result_lbl.config(text="Вариант 14", foreground="black")
-                    else:
-                        im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var15.png"
-                        self.result_lbl.config(text="Вариант 15", foreground="black")
-
-                elif p_s[8] == 5 and p_s[9] == 3:
-                    if (p_s[4] == 0 or p_s[5] == 0) and (p_s[6] == 0 or p_s[7] == 0):
-                        if (p_s[0] == 24 or p_s[1] == 24) and (p_s[2] == 25 or p_s[3] == 25):
-                            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var16.png"
-                            self.result_lbl.config(text="Вариант 16", foreground="black")
-                        else:
-                            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var17.png"
-                            self.result_lbl.config(text="Вариант 17", foreground="black")
-                    else:
-                        im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var18.png"
-                        self.result_lbl.config(text="Вариант 18", foreground="black")
-                elif p_s[8] == 6 and p_s[9] == 4:
-                    if (p_s[4] == 0 or p_s[5] == 0) and (p_s[6] == 0 or p_s[7] == 0):
-                        if (p_s[0] == 24 or p_s[1] == 24) and (p_s[2] == 36 or p_s[3] == 36):
-                            if p_s[11] == 1:
-                                if v_s[10] == 1 and v_s[11] == 1 and p_s[12] == 1:
-                                    im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var23.png"
-                                    self.result_lbl.config(text="Вариант 23", foreground="black")
-                                else:
-                                    im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var24.png"
-                                    self.result_lbl.config(text="Вариант 24", foreground="black")
-                            else:
-                                im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var1.png"
-                                self.result_lbl.config(text="Вариант 1", foreground="black")
-                        else:
-                            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var2.png"
-                            self.result_lbl.config(text="Вариант 2", foreground="black")
-                    else:
-                        im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var3.png"
-                        self.result_lbl.config(text="Вариант 3", foreground="black")
-                else:
-                    im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var3.png"
-                    self.result_lbl.config(text="Вариант 3", foreground="black")
-            else:
-                im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Var19.png"
-                self.result_lbl.config(text="Вариант 19", foreground="black")
+    def logik_of_indication(self, v_s):
+        if v_s[0] == 1 or v_s[8] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var1.png"
+            self.result_lbl.config(text="Вариант 1", foreground="black")
+        elif v_s[1] == 1 or v_s[9] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var2.png"
+            self.result_lbl.config(text="Вариант 2", foreground="black")
+        elif v_s[2] == 1 or v_s[10] == 1 and v_s[4] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var3.png"
+            self.result_lbl.config(text="Вариант 3", foreground="black")
+        elif v_s[2] == 1 or v_s[10] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var7.png"
+            self.result_lbl.config(text="Вариант 7", foreground="black")
+        elif v_s[3] == 1 or v_s[11] == 1 and v_s[5] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var4.png"
+            self.result_lbl.config(text="Вариант 4", foreground="black")
+        elif v_s[3] == 1 or v_s[11] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var8.png"
+            self.result_lbl.config(text="Вариант 8", foreground="black")
+        elif v_s[6] == 1 or v_s[12] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var5.png"
+            self.result_lbl.config(text="Вариант 5", foreground="black")
+        elif v_s[7] == 1 or v_s[13] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var6.png"
+            self.result_lbl.config(text="Вариант 6", foreground="black")
+        elif v_s[17] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var9.png"
+            self.result_lbl.config(text="Вариант 9", foreground="black")
+        elif v_s[18] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var9.png"
+            self.result_lbl.config(text="Вариант 9 мигающий", foreground="black")
+        elif v_s[15] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var10.png"
+            self.result_lbl.config(text="Вариант 10", foreground="black")
+        elif v_s[14] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var11.png"
+            self.result_lbl.config(text="Вариант 11", foreground="black")
+        elif v_s[19] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var12.png"
+            self.result_lbl.config(text="Вариант 12", foreground="black")
+        elif v_s[20] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var12.png"
+            self.result_lbl.config(text="Вариант 12 мигающий", foreground="black")
+        elif v_s[16] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var13.png"
+            self.result_lbl.config(text="Вариант 13", foreground="black")
+        elif v_s[21] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var14.png"
+            self.result_lbl.config(text="Вариант 14", foreground="black")
+        elif v_s[22] == 1:
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var15.png"
+            self.result_lbl.config(text="Вариант 15", foreground="black")
         else:
-            im = app_6_3_8.config_path + "/Images/Indication_6_3_8/Error.png"
-            self.result_lbl.config(text="Ошибка", foreground="red")
+            im = app_7_6_20.config_path + "/Images/Indication_7_6_20/Var16.png"
+            self.result_lbl.config(text="Вариант 16", foreground="black")
         return im
 
     def screen(self):
         cap = tkcap.CAP(self.win)
-        cap.capture(app_6_3_8.config_path + "/Screenshots/Screen{}.png".format(str(self.count)))
+        cap.capture(app_7_6_20.config_path + "/Screenshots/Screen{}.png".format(str(self.count)))
         self.count += 1
 
     def copy(self):
-        pyperclip.copy(app_6_3_8.logic)
+        pyperclip.copy(app_7_6_20.logic)
         return 0
 
     def tests(self, a):
@@ -355,9 +300,9 @@ class app_6_3_8:
                   )
 
         # Label menu
-        self.img1 = Image.open(app_6_3_8.config_path + "/logo.png")
-        self.img2 = Image.open(app_6_3_8.config_path + "/ssj1.png")
-        self.img3 = Image.open(app_6_3_8.config_path + "/ssj2.png")
+        self.img1 = Image.open(app_7_6_20.config_path + "/logo.png")
+        self.img2 = Image.open(app_7_6_20.config_path + "/ssj1.png")
+        self.img3 = Image.open(app_7_6_20.config_path + "/ssj2.png")
 
         self.width = 400
 
@@ -421,22 +366,20 @@ class app_6_3_8:
         self.fr = Frame(self.fr_with_date, relief=RIDGE, bd=1, width=150, bg='black')
         self.lbl0 = Label(self.fr, text="Описание\nвходного параметра", font=("Times New Roman", 11), width=24,
                           height=2, bg='#ececec')
-        self.lbl1 = Label(self.fr, text="Название входного\nпараметра", font=("Times New Roman", 11), width=16,
+        self.lbl1 = Label(self.fr, text="Название входного\nпараметра", font=("Times New Roman", 11), width=26,
                           height=2, bg='#ececec')
         self.lbl2 = Label(self.fr, text="Валидность\nсигнала", font=("Times New Roman", 11), width=12, height=2, bg='#ececec')
-        self.lbl3 = Label(self.fr, text="Значение\nсигнала", font=("Times New Roman", 11), width=9, height=2, bg='#ececec')
-        self.lbl4 = Label(self.fr, text="Физический\nдиапазон", font=("Times New Roman", 11), width=9, height=2, bg='#ececec')
+        self.lbl4 = Label(self.fr, text="Физический\nдиапазон", font=("Times New Roman", 11), width=10, height=2, bg='#ececec')
 
         self.fr.pack(side=TOP)
         self.lbl0.pack(side=LEFT)
         self.lbl1.pack(side=LEFT)
         self.lbl2.pack(side=LEFT)
-        self.lbl3.pack(side=LEFT)
         self.lbl4.pack(side=LEFT)
         self.fr_main.pack(side=LEFT, fill=BOTH)
 
         # Циклическое создание таблицы
-        for i in range(len(app_6_3_8.descriptSig)):
+        for i in range(len(app_7_6_20.descriptSig)):
             exec('self.txt{} = DoubleVar()'.format(str(i)))
             exec('self.var{} = IntVar()'.format(str(i)))
             exec('self.var{}.set(1)'.format(str(i)))
@@ -445,41 +388,39 @@ class app_6_3_8:
             exec('self.fr{} = Frame(self.fr_with_date, relief=GROOVE, bd=1, width=70, bg="black")'.format(str(i)))
 
             # Ячейка с описанием параметра
-            exec('self.text{} = Text(self.fr{}, font=("Times New Roman", 11), height=2, width=23, wrap=WORD, '
+            exec('self.text{} = Text(self.fr{}, font=("Times New Roman", 11), height=2, width=24, wrap=WORD, '
                  'bg ="#ececec")'.format(str(i), str(i)))
             exec('self.text{}.tag_configure("center", justify="center")'.format(str(i)))
-            exec('self.text{}.insert(1.0, "{}")'.format(str(i), app_6_3_8.descriptSig[i]))
+            exec('self.text{}.insert(1.0, "{}")'.format(str(i), app_7_6_20.descriptSig[i]))
             exec('self.text{}.tag_add("center", "1.0", "end")'.format(str(i)))
             exec('self.text{}.config(state=DISABLED)'.format(str(i)))
 
             # Ячейка с именем параметра
-            exec('self.lbl{} = Label(self.fr{}, text="{}", font=("Times New Roman", 11), width=16, height=2)'.format(
-                str(i), str(i), app_6_3_8.nameSig[i]))
+            exec('self.text1{} = Text(self.fr{}, font=("Times New Roman", 11), height=2, width=25, wrap=WORD, '
+                 'bg ="#ececec")'.format(str(i), str(i)))
+            exec('self.text1{}.tag_configure("center", justify="center")'.format(str(i)))
+            exec('self.text1{}.insert(1.0, "{}")'.format(str(i), app_7_6_20.nameSig[i]))
+            exec('self.text1{}.tag_add("center", "1.0", "end")'.format(str(i)))
+            exec('self.text1{}.config(state=DISABLED)'.format(str(i)))
 
             # Ячейка с выбором валидности сигнала
             exec(
                 "self.chb{} = Checkbutton(self.fr{}, text='Валиден', cursor='exchange', font=('Times New Roman', 11), variable=self.var{}, onvalue=1, offvalue=0, width=12, height=2)".format(
                     str(i), str(i), str(i)))
 
-            # Ячейка с вводом значения параметра
-            exec(
-                "self.ent{} = Entry(self.fr{}, textvariable=self.txt{}, font=('Times New Roman', 11), relief=GROOVE, width=8)".format(
-                    str(i), str(i), str(i)))
-
             # Ячейка c диапазоном возможных значений
-            exec('self.text{}1 = Text(self.fr{}, font=("Times New Roman", 11), height=2, width=9, wrap=WORD, bg="#ececec")'.format(
+            exec('self.text2{} = Text(self.fr{}, font=("Times New Roman", 11), height=2, width=10, wrap=WORD, bg="#ececec")'.format(
                 str(i), str(i)))
-            exec('self.text{}1.tag_configure("center", justify="center")'.format(str(i)))
-            exec('self.text{}1.insert(1.0, "{}")'.format(str(i), app_6_3_8.rangeSig[i]))
-            exec('self.text{}1.tag_add("center", "1.0", "end")'.format(str(i)))
-            exec('self.text{}1.config(state=DISABLED)'.format(str(i)))
+            exec('self.text2{}.tag_configure("center", justify="center")'.format(str(i)))
+            exec('self.text2{}.insert(1.0, "{}")'.format(str(i), app_7_6_20.rangeSig[i]))
+            exec('self.text2{}.tag_add("center", "1.0", "end")'.format(str(i)))
+            exec('self.text2{}.config(state=DISABLED)'.format(str(i)))
 
             # Расположение Виджетов
             exec('self.text{}.pack(side=LEFT)'.format(str(i)))
-            exec("self.lbl{}.pack(side=LEFT, fill=Y)".format(str(i)))
+            exec("self.text1{}.pack(side=LEFT, fill=Y)".format(str(i)))
             exec("self.chb{}.pack(side=LEFT)".format(str(i)))
-            exec("self.ent{}.pack(side=LEFT, fill=Y)".format(str(i)))
-            exec("self.text{}1.pack(side=LEFT, fill=Y)".format(str(i)))
+            exec("self.text2{}.pack(side=LEFT, fill=Y)".format(str(i)))
             exec("self.fr{}.pack(side=TOP)".format(str(i)))
         # Конец таблицы ###################################################
 
@@ -521,23 +462,16 @@ class app_6_3_8:
 
         self.scr = Scrollbar(self.fr_logic, orient=VERTICAL)
         self.text = Text(self.fr_logic, font=("Times New Roman", 12), width=70, yscrollcommand=self.scr.set)
-        self.text.insert(END, app_6_3_8.logic)
+        self.text.insert(END, app_7_6_20.logic)
         self.text["state"] = DISABLED
 
         self.scr.config(command=self.text)
-
-        self.chb4["state"] = DISABLED
-        self.chb5["state"] = DISABLED
-        self.chb6["state"] = DISABLED
-        self.chb7["state"] = DISABLED
-        self.chb10["state"] = DISABLED
-        self.txt10.set(1)
 
         self.fr_results.pack(side=LEFT, fill=BOTH)
         self.canvas.pack(side=TOP)
 
         # Добавим изображение
-        self.c_image = self.canvas.create_image(6, 6, image=self.photo, anchor='nw')
+        self.c_image = self.canvas.create_image(8, 8, image=self.photo, anchor='nw')
 
         self.start_bt.pack()
         self.result_lbl.pack()

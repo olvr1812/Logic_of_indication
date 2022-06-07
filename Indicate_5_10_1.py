@@ -46,7 +46,7 @@ class app_5_10_1:
     nameSig = xl_new['Название входного параметра'].tolist()
     rangeSig = xl_new['Физический диапазон'].tolist()
 
-    im = config_path + '/Indication_5_10_1/Var3.png'
+    im = config_path + '/Images/Indication_5_10_1/Var3.png'
 
     logic = open(config_path + '/logic_text/logic_5_10_1.txt', encoding='utf-8').readlines()
     logic = ''.join(logic)
@@ -448,51 +448,51 @@ class app_5_10_1:
                 if p_s[16] == 1:
                     ans = "Вариант 3"
                     txt = "Нет данных о состоянии канала 1 СДУ. Восстанавливаемый минимальный режим управления. Прямоугольник и номер индицируются янтарным цветом перечёркнутые янтарным крестом."
-                    im = config_path + '/Indication_5_10_1/Var3.png'
+                    im = config_path + '/Images/Indication_5_10_1/Var3.png'
                 else:
                     if (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) > 6 and (
                             L11F + L12F + L21F + L22F + R11F + R12F + R21F + R22F) > 3:
                         ans = "Вариант 2"
                         txt = "Отказ канала 1 СДУ. Прямоугольник и номер индицируются янтарным цветом."
-                        im = config_path + '/Indication_5_10_1/Var2.png'
+                        im = config_path + '/Images/Indication_5_10_1/Var2.png'
 
                     elif (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) < 7 and (
                             L11F + L12F + L21F + L22F + R11F + R12F + R21F + R22F) > 2:
                         ans = "Вариант 2"
                         txt = "Отказ канала 1 СДУ. Прямоугольник и номер индицируются янтарным цветом."
-                        im = config_path + '/Indication_5_10_1/Var2.png'
+                        im = config_path + '/Images/Indication_5_10_1/Var2.png'
 
 
                     elif (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) < 5 and (
                             L11F + L12F + L21F + L22F + R11F + R12F + R21F + R22F) > 1:
                         ans = "Вариант 2"
                         txt = "Нормальное состояние канала 1 СДУ. Прямоугольник и номер индицируются зелёным цветом."
-                        im = config_path + '/Indication_5_10_1/Var2.png'
+                        im = config_path + '/Images/Indication_5_10_1/Var2.png'
 
 
                     elif (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) < 3 and (
                             L11F + L12F + L21F + L22F + R11F + R12F + R21F + R22F) > 0:
                         ans = "Вариант 2"
                         txt = "Нормальное состояние канала 1 СДУ. Прямоугольник и номер индицируются зелёным цветом."
-                        im = config_path + '/Indication_5_10_1/Var2.png'
+                        im = config_path + '/Images/Indication_5_10_1/Var2.png'
 
 
                     elif (L11V + L12V + L21V + L22V + R11V + R12V + R21V + R22V) < 2:
                         ans = "Вариант 3"
                         txt = "Нет данных о состоянии канала 1 СДУ. Восстанавливаемый минимальный режим управления. Прямоугольник и номер индицируются янтарным цветом перечёркнутые янтарным крестом."
-                        im = config_path + '/Indication_5_10_1/Var3.png'
+                        im = config_path + '/Images/Indication_5_10_1/Var3.png'
 
                     else:
                         ans = "Вариант 1"
                         txt = "Нормальное состояние канала 1 СДУ. Прямоугольник и номер индицируются зелёным цветом."
-                        im = config_path + '/Indication_5_10_1/Var1.png'
+                        im = config_path + '/Images/Indication_5_10_1/Var1.png'
 
 
             # print(v_s, "\n", p_s)
 
             else:
                 print("System Error")
-                im = config_path + '/Indication_5_10_1/Error.png'
+                im = config_path + '/Images/Indication_5_10_1/Error.png'
 
             return im
 

@@ -3,6 +3,8 @@ from pyautogui import *
 from PIL import Image, ImageTk
 from pandas import *
 import indicate_6_3_8
+import indicate_7_6_18
+import indicate_7_6_20
 
 
 class pwd_logic:
@@ -114,6 +116,12 @@ class pwd_logic:
         if self.choose_indicate == 'Индикация положения РУМК':
             self.newWindow = Toplevel(self.win)
             self.app = indicate_6_3_8.app_6_3_8(self.newWindow)
+        elif self.choose_indicate == 'Индикация возможности захода на посадку':
+            self.newWindow = Toplevel(self.win)
+            self.app = indicate_7_6_18.app_7_6_18(self.newWindow)
+        elif self.choose_indicate == 'Вертикальные режимы AP/FD':
+            self.newWindow = Toplevel(self.win)
+            self.app = indicate_7_6_20.app_7_6_20(self.newWindow)
         else:
             self.var.set('Данный параметр не задан')
 
