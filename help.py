@@ -6,7 +6,7 @@ import tkcap
 import pyperclip
 from functools import partial
 from tkinter.ttk import Combobox
-import indicate_6_3_8
+import Indicate_6_3_8
 
 
 

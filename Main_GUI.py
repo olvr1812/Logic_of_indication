@@ -32,9 +32,9 @@ class main_app:
         self.img_EWD = Image.open(config_path + '/EWD.png')
         self.img_FCTL = Image.open(config_path + '/FCTL.png')
 
-        self.img_PFD_res = self.img_PFD.resize((250, 250), Image.ANTIALIAS)
-        self.img_EWD_res = self.img_EWD.resize((447, 250), Image.ANTIALIAS)
-        self.img_FCTL_res = self.img_FCTL.resize((279, 250), Image.ANTIALIAS)
+        self.img_PFD_res = self.img_PFD.resize((250, 250), Image.Resampling.LANCZOS)
+        self.img_EWD_res = self.img_EWD.resize((447, 250), Image.Resampling.LANCZOS)
+        self.img_FCTL_res = self.img_FCTL.resize((279, 250), Image.Resampling.LANCZOS)
 
         self.pfd = ImageTk.PhotoImage(self.img_PFD_res)
         self.ewd = ImageTk.PhotoImage(self.img_EWD_res)

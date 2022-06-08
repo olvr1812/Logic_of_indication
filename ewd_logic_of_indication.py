@@ -3,8 +3,10 @@ from pyautogui import *
 from PIL import Image, ImageTk
 from pandas import *
 
+import Indicate_6_2_2
+import Indicate_6_3_6
 import Main_GUI
-import indicate_6_3_8
+import Indicate_6_3_8
 
 
 class ewd_logic:
@@ -103,13 +105,20 @@ class ewd_logic:
     def open_indicate(self, event):
         if self.choose_indicate == 'Индикации положения ручки управления механизацией':
             self.newWindow = Toplevel(self.win)
-            self.app = indicate_6_3_8.app_6_3_8(self.newWindow)
+            self.app = Indicate_6_3_8.app_6_3_8(self.newWindow)
+        elif self.choose_indicate == 'Изображение закрылков и индикация положения закрылков':
+            self.newWindow = Toplevel(self.win)
+            self.app = Indicate_6_3_6.app_6_3_6(self.newWindow)
+        elif self.choose_indicate == 'Индикация состояния канала управления интерцепторов левой ОЧК':
+            self.newWindow = Toplevel(self.win)
+            self.app = Indicate_6_2_2.app_6_2_2(self.newWindow)
         else:
             self.var.set('Данный параметр не задан')
 
     def select_indicate(self, val):
         sender = val.widget
         idx = sender.curselection()
+        print(idx)
         self.choose_indicate = sender.get(idx)
         self.img_of_selected_logic = Image.open(self.img_list[idx[0]])
         self.w, self.h = self.img_of_selected_logic.size

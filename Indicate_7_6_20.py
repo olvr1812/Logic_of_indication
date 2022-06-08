@@ -52,7 +52,7 @@ class app_7_6_20:
         self.image = Image.open(self.im)
         self.photo = ImageTk.PhotoImage(self.image)
         self.x = self.photo.width()
-        self.y =self.photo.height()
+        self.y = self.photo.height()
         self.canvas.delete("all")
         self.canvas.config(width=self.x, height=self.y)
         self.canvas.create_image(8, 8, image=self.photo, anchor=NW)
@@ -125,167 +125,31 @@ class app_7_6_20:
 
     def tests(self, a):
         if a == 1:
-            self.txt0.set(0) # DPK1
-            self.txt1.set(0) # DPK2
-            self.txt2.set(1) # DZK1
-            self.txt3.set(1) # DZK2
-            self.txt4.set(0) # FLAPS_1_FAULT
-            self.txt5.set(0) # FLAPS_2_FAULT
-            self.txt6.set(0) # SLATS_1_FAULT
-            self.txt7.set(0) # SLATS_2_FAULT
-            self.txt8.set(1) # X_MHZN
-            self.txt9.set(0) # X_FCM
-            self.txt10.set(1) # X_FCM_valid
-            self.txt11.set(0) # S/A
-            self.txt12.set(0) # S/A_FEEDBACK
-            self.var0.set(1)
-            self.var1.set(1)
-            self.var2.set(1)
-            self.var3.set(1)
-            self.var4.set(1)
-            self.var5.set(1)
-            self.var6.set(1)
-            self.var7.set(1)
-            self.var8.set(1)
-            self.var9.set(1)
-            self.var10.set(1)
-            self.var11.set(1)
-            self.var12.set(1)
-        elif a == 2:
-            self.txt0.set(18)  # DPK1
-            self.txt1.set(18)  # DPK2
-            self.txt2.set(3)  # DZK1
-            self.txt3.set(3)  # DZK2
-            self.txt4.set(0)  # FLAPS_1_FAULT
-            self.txt5.set(0)  # FLAPS_2_FAULT
-            self.txt6.set(0)  # SLATS_1_FAULT
-            self.txt7.set(0)  # SLATS_2_FAULT
-            self.txt8.set(2)  # X_MHZN
-            self.txt9.set(1)  # X_FCM
-            self.txt10.set(1)  # X_FCM_valid
-            self.txt11.set(0)  # S/A
-            self.txt12.set(0)  # S/A_FEEDBACK
-            self.var0.set(1)
-            self.var1.set(1)
-            self.var2.set(1)
-            self.var3.set(1)
-            self.var4.set(1)
-            self.var5.set(1)
-            self.var6.set(1)
-            self.var7.set(1)
-            self.var8.set(1)
-            self.var9.set(1)
-            self.var10.set(1)
-            self.var11.set(1)
-            self.var12.set(1)
-        elif a == 3:
-            self.txt0.set(18)  # DPK1
-            self.txt1.set(18)  # DPK2
-            self.txt2.set(9)  # DZK1
-            self.txt3.set(9)  # DZK2
-            self.txt4.set(0)  # FLAPS_1_FAULT
-            self.txt5.set(0)  # FLAPS_2_FAULT
-            self.txt6.set(0)  # SLATS_1_FAULT
-            self.txt7.set(0)  # SLATS_2_FAULT
-            self.txt8.set(3)  # X_MHZN
-            self.txt9.set(1)  # X_FCM
-            self.txt10.set(1)  # X_FCM_valid
-            self.txt11.set(0)  # S/A
-            self.txt12.set(0)  # S/A_FEEDBACK
-            self.var0.set(1)
-            self.var1.set(1)
-            self.var2.set(1)
-            self.var3.set(1)
-            self.var4.set(1)
-            self.var5.set(1)
-            self.var6.set(1)
-            self.var7.set(1)
-            self.var8.set(1)
-            self.var9.set(1)
-            self.var10.set(1)
-            self.var11.set(1)
-            self.var12.set(1)
-        elif a == 4:
-            self.txt0.set(24)  # DPK1
-            self.txt1.set(24)  # DPK2
-            self.txt2.set(16)  # DZK1
-            self.txt3.set(16)  # DZK2
-            self.txt4.set(0)  # FLAPS_1_FAULT
-            self.txt5.set(0)  # FLAPS_2_FAULT
-            self.txt6.set(0)  # SLATS_1_FAULT
-            self.txt7.set(0)  # SLATS_2_FAULT
-            self.txt8.set(4)  # X_MHZN
-            self.txt9.set(2)  # X_FCM
-            self.txt10.set(1)  # X_FCM_valid
-            self.txt11.set(0)  # S/A
-            self.txt12.set(0)  # S/A_FEEDBACK
-            self.var0.set(1)
-            self.var1.set(1)
-            self.var2.set(1)
-            self.var3.set(1)
-            self.var4.set(1)
-            self.var5.set(1)
-            self.var6.set(1)
-            self.var7.set(1)
-            self.var8.set(1)
-            self.var9.set(1)
-            self.var10.set(1)
-            self.var11.set(1)
-            self.var12.set(1)
-        elif a == 5:
-            self.txt0.set(24)  # DPK1
-            self.txt1.set(24)  # DPK2
-            self.txt2.set(25)  # DZK1
-            self.txt3.set(25)  # DZK2
-            self.txt4.set(0)  # FLAPS_1_FAULT
-            self.txt5.set(0)  # FLAPS_2_FAULT
-            self.txt6.set(0)  # SLATS_1_FAULT
-            self.txt7.set(0)  # SLATS_2_FAULT
-            self.txt8.set(5)  # X_MHZN
-            self.txt9.set(3)  # X_FCM
-            self.txt10.set(1)  # X_FCM_valid
-            self.txt11.set(0)  # S/A
-            self.txt12.set(0)  # S/A_FEEDBACK
-            self.var0.set(1)
-            self.var1.set(1)
-            self.var2.set(1)
-            self.var3.set(1)
-            self.var4.set(1)
-            self.var5.set(1)
-            self.var6.set(1)
-            self.var7.set(1)
-            self.var8.set(1)
-            self.var9.set(1)
-            self.var10.set(1)
-            self.var11.set(1)
-            self.var12.set(1)
-        elif a == 6:
-            self.txt0.set(24)  # DPK1
-            self.txt1.set(24)  # DPK2
-            self.txt2.set(36)  # DZK1
-            self.txt3.set(36)  # DZK2
-            self.txt4.set(0)  # FLAPS_1_FAULT
-            self.txt5.set(0)  # FLAPS_2_FAULT
-            self.txt6.set(0)  # SLATS_1_FAULT
-            self.txt7.set(0)  # SLATS_2_FAULT
-            self.txt8.set(6)  # X_MHZN
-            self.txt9.set(4)  # X_FCM
-            self.txt10.set(1)  # X_FCM_valid
-            self.txt11.set(0)  # S/A
-            self.txt12.set(0)  # S/A_FEEDBACK
-            self.var0.set(1)
-            self.var1.set(1)
-            self.var2.set(1)
-            self.var3.set(1)
-            self.var4.set(1)
-            self.var5.set(1)
-            self.var6.set(1)
-            self.var7.set(1)
-            self.var8.set(1)
-            self.var9.set(1)
-            self.var10.set(1)
-            self.var11.set(1)
-            self.var12.set(1)
+            self.var0.set(0)
+            self.var1.set(0)
+            self.var2.set(0)
+            self.var3.set(0)
+            self.var4.set(0)
+            self.var5.set(0)
+            self.var6.set(0)
+            self.var7.set(0)
+            self.var8.set(0)
+            self.var9.set(0)
+            self.var10.set(0)
+            self.var11.set(0)
+            self.var12.set(0)
+            self.var13.set(0)
+            self.var14.set(0)
+            self.var15.set(0)
+            self.var16.set(0)
+            self.var17.set(0)
+            self.var18.set(0)
+            self.var19.set(0)
+            self.var20.set(0)
+            self.var21.set(0)
+            self.var22.set(0)
+
+
 
     def __init__(self, master, txt_results=None):
         self.win = master
@@ -437,18 +301,8 @@ class app_7_6_20:
 
         self.result_lbl = Label(self.fr_results, text=txt_results)
 
-        self.test1 = ttk.Button(self.fr_tests_l, text="FLAP ICE", cursor="hand1", command=partial(self.tests, 1),
+        self.test1 = ttk.Button(self.fr_tests_l, text="Сброс", cursor="hand1", command=partial(self.tests, 1),
                                 style="C.TButton")
-        self.test2 = ttk.Button(self.fr_tests_r, text="FLAP 1", cursor="hand1", command=partial(self.tests, 2),
-                                style="C.TButton")
-        self.test3 = ttk.Button(self.fr_tests_l, text="FLAP 1+F", cursor="hand1", command=partial(self.tests, 3),
-                                style="C.TButton")
-        self.test4 = ttk.Button(self.fr_tests_r, text="FLAP 2", cursor="hand1", command=partial(self.tests, 4),
-                                style="C.TButton")
-        self.test5 = ttk.Button(self.fr_tests_l, text="FLAP 3", cursor="hand1", command=partial(self.tests, 5),
-                                style="C.TButton", width=10)
-        self.test6 = ttk.Button(self.fr_tests_r, text="FULL", cursor="hand1", command=partial(self.tests, 6),
-                                style="C.TButton", width=10)
         self.btn_copy = Button(self.fr_copy_and_screen, text="Copy", font=('Times New Roman', 14), command=self.copy,
                                width=11, cursor="hand1")
         self.btn_screenshot = Button(self.fr_copy_and_screen, text="Save screen", font=("Times New Roman", 14),
@@ -479,11 +333,6 @@ class app_7_6_20:
         self.fr_tests_l.pack(side=LEFT)
         self.fr_tests_r.pack(side=RIGHT)
         self.test1.pack(fill=BOTH)
-        self.test2.pack(fill=BOTH)
-        self.test3.pack(fill=BOTH)
-        self.test4.pack(fill=BOTH)
-        self.test5.pack(fill=BOTH)
-        self.test6.pack(fill=BOTH)
         self.fr_copy_and_screen.pack(side=BOTTOM)
         self.btn_screenshot.pack(side=LEFT)
         self.btn_copy.pack(side=LEFT)

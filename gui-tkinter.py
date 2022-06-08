@@ -6,13 +6,6 @@ from PIL import Image, ImageTk
 
 class GuessingGame:
 
-
-    xl_new = read_excel('/Users/osalikhov/Desktop/works_gss/Indication_SSJnew/logic.xlsx')
-
-    descriptSig = xl_new['Описание входного параметра'].tolist()
-    nameSig = xl_new['Название входного параметра'].tolist()
-    rangeSig = xl_new['Физический диапазон'].tolist()
-
     def __init__(self, master):
         self.master = master
         master.title("Guessing Game")
@@ -25,7 +18,6 @@ class GuessingGame:
         self.label_text = StringVar()
         self.label_text.set(self.message)
         self.label = Label(master, textvariable=self.label_text)
-        self.lbl = Label(master, text=self.nameSig[0])
 
         vcmd = master.register(self.validate) # we have to wrap the command
         self.entry = Entry(master, validate="key", validatecommand=(vcmd, '%P'))
@@ -37,7 +29,6 @@ class GuessingGame:
         self.entry.pack()
         self.guess_button.pack()
         self.reset_button.pack()
-        self.lbl.pack()
 
         self.img1 = Image.open("logo.png")
         self.img2 = Image.open("ssj1.png")

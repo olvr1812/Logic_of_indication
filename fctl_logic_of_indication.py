@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 from pandas import *
 
 import indicate_5_10_1
-import indicate_6_3_8
+import Indicate_6_3_8
 
 
 class fctl_logic:
