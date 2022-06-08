@@ -1,0 +1,14 @@
+If (APP CAT1 CAPABILITY = 1) then <вариант 1>
+Else 
+If (APP CAT1 CAPABILITY FORCED = 1) then <вариант 5>
+Else 
+If (APP CAT2 CAPABILITY = 1) then <вариант 2>
+Else 
+If (APP CAT2 CAPABILITY FORCED = 1) then <вариант 6>
+Else 
+If (APP CAT3A CAPABILITY = 1) then <вариант 3> 
+Else 
+If (APP CAT3B CAPABILITY = 1) then <вариант 4> 
+Else 
+If (APP CAT1 STEEP CAPABILITY = 1)then <вариант 7>
+Else ничего не отображается

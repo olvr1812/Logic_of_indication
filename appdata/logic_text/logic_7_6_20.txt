@@ -1,0 +1,37 @@
+Логика
+If (ALTITUDE HOLD MODE ENGAGED = 1  or ALTITUDE HOLD MODE DEGRADED = 1 ) then <вариант 1>
+Else 
+    If (ALTITUDE ACQUIRE MODE ENGAGED = 1 or ALTITUDE ACQUIRE MODE DEGRADED = 1) then <вариант 2>
+    Else
+        If ((VERTICAL SPEED MODE ENGAGED = 1 or VERTICAL SPEED MODE DEGRADED = 1) and (VERTICAL SPEED TARGET валиден) then отображается <вариант 3> с заданным значением вертикальной скорости
+        Else
+	    If (VERTICAL SPEED MODE ENGAGED = 1 or VERTICAL SPEED MODE DEGRADED = 1) then <вариант 7>
+	    Else
+                If ((FLIGHT PATH ANGLE MODE ENGAGED = 1 or FLIGHT PATH ANGLE MODE DEGRADED = 1) and TARGET FPA валиден)
+then отображается <вариант 4> с заданным значением угла тангажа.
+Для значения угла тангажа больше чем 9.9 отображается значение +9.9, если значение меньше -9.9 отображается значение -9.9.
+		Else
+                    If (FLIGHT PATH ANGLE MODE ENGAGED = 1 or FLIGHT PATH ANGLE MODE DEGRADED = 1) then <вариант 8>
+                    Else
+                        If (CLIMB MODE ENGAGED = 1 or CLIMB MODE DEGRADED = 1) then <вариант 5>
+	                Else
+                            If (DESCENT MODE ENGAGED = 1 or DESCENT MODE DEGRADED = 1) then <вариант 6>
+                            Else
+	                        If (TO ENGAGED = 1) then <вариант 9>
+	                        Else
+                                    If (TO FLASHING = 1) then <вариант 9> будет мигать
+                                    Else 
+                                        If (GLIDE TRACKING ENGAGED = 1) then <вариант 10>
+                                        Else 
+                                            If (GLIDE CAPTURE ENGAGED = 1) then <вариант 11>
+                                            Else 
+                                                If (GA ENGAGED = 1) then <вариант 12>
+                                                Else
+                                                    If GA FLASHING = 1 является TRUE then <вариант 12> будет мигать
+                                                    Else 
+                                                        If (VNAV ENGAGED = 1) then <вариант 13>
+                                                        Else
+                                                            If (VNAV APP ENGAGED = 1) then <вариант 14>
+                                                            Else
+                                                                If (FLARE ENGAGED = 1) then <вариант 15>
+                                                                Else ничего не отображается

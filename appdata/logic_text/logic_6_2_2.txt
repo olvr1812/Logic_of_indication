@@ -1,0 +1,13 @@
+If (L247(FCS12R-AVS) and L341(FCS12R-AVS)) and (L247(FCS22L-AVS) and L341(FCS22L-AVS))   and (L247(FCS12L-AVS) and L341(FCS12L-AVS)) валидны than
+    If L_SPLRS_S3_FAULT =0 and L_SPLRS_S2_FAULT =0 and L_SPLRS_S1_FAULT =0  then 
+        If (L_SPLRS_S3 + L_SPLRS_S2 + L_SPLRS_S1) /3 >= -5 then   <Вариант 1> 
+        else
+            If (L_SPLRS_S3 + L_SPLRS_S2 + L_SPLRS_S1) /3  <= -50 then <Вариант 5> высота стрелки соответствует максимальному значению (-55 градусов) 
+            else <Вариант 3> высота стрелки пропорциональна значению…
+
+    else    
+    If (L_SPLRS_S3 + L_SPLRS_S2 + L_SPLRS_S1) /3 >= -5 then   <Вариант 2>
+    else
+        If (L_SPLRS_S3 + L_SPLRS_S2 + L_SPLRS_S1) /3 <= -50 then <Вариант 6> высота стрелки соответствует максимальному значению (-55 градусов)
+        else <Вариант 4> высота стрелки пропорциональна значению…
+Else <Вариант 7>
